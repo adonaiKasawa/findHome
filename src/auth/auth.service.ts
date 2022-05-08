@@ -26,7 +26,7 @@ export class AuthService {
                 payload,
                 {
                     secret: process.env.SECRET_KEY_AT,
-                    expiresIn: 60
+                    expiresIn: 60 * 20
 
                 }
             ),

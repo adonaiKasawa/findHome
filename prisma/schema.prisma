@@ -56,8 +56,8 @@ model models {
   nombrePiece    Int
   prix           Int
   periodPayement String
-  video          String
-  photo          String
+  video          String?
+  photo          String?
 
   propriete   propriete? @relation(fields: [proprieteId], references: [id])
   proprieteId Int?

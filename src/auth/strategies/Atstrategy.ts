@@ -18,7 +18,7 @@ export class AtStrategy extends PassportStrategy(Strategy, 'jwt') {
     }
 
     async validate(payload: any) {
-        console.log(payload);
+        // console.log(payload);
         
         const user = await this.prisma.bayeurs.findUnique({
             where:{
