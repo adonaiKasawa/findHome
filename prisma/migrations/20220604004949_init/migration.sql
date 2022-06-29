@@ -11,6 +11,7 @@ CREATE TABLE "bayeurs" (
     "adresse" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "creditCard" TEXT NOT NULL,
+    "hashedRt" TEXT,
 
     CONSTRAINT "bayeurs_pkey" PRIMARY KEY ("id")
 );
@@ -42,8 +43,8 @@ CREATE TABLE "models" (
     "nombrePiece" INTEGER NOT NULL,
     "prix" INTEGER NOT NULL,
     "periodPayement" TEXT NOT NULL,
-    "video" TEXT NOT NULL,
-    "photo" TEXT NOT NULL,
+    "video" TEXT,
+    "photo" TEXT,
     "proprieteId" INTEGER,
 
     CONSTRAINT "models_pkey" PRIMARY KEY ("id")
@@ -86,6 +87,9 @@ CREATE TABLE "periodPayement" (
 
     CONSTRAINT "periodPayement_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "bayeurs_email_key" ON "bayeurs"("email");
 
 -- AddForeignKey
 ALTER TABLE "propriete" ADD CONSTRAINT "propriete_bayeursId_fkey" FOREIGN KEY ("bayeursId") REFERENCES "bayeurs"("id") ON DELETE SET NULL ON UPDATE CASCADE;

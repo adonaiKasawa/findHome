@@ -1,7 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
-import { IsCreditCard, IsEmail, IsNotEmpty, IsOptional, IsPhoneNumber, IsString } from "class-validator";
-import { isNumberObject } from "util/types";
+import { IsEmail, IsNotEmpty, IsOptional, IsPhoneNumber, IsString } from "class-validator";
 
 export class AuthDto {
 
@@ -15,10 +14,6 @@ export class AuthDto {
     @IsString()
     password: string;
 
-    @ApiProperty()
-    @IsNotEmpty()
-    @IsString()
-    type: string;
 }
 
 export class SignInDto {
@@ -27,6 +22,7 @@ export class SignInDto {
     @IsOptional()
     @Type(() => Number)
     id : number
+
     @ApiProperty()
     @IsNotEmpty()
     @IsString()

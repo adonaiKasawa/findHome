@@ -36,7 +36,9 @@ export class ProprieteController {
     @Body() proprieteCreateInput: CreateProprieteDto,
     @UploadedFiles() files:any
   ): any {
-
+    // console.log("files", files);
+    // console.log("proprieteCreateInput", proprieteCreateInput);
+    
     const transformDataForCreate = this.proprieteService.transformDataForCreate({files,proprieteCreateInput,user})
     return this.proprieteService.create(transformDataForCreate);
   }
@@ -44,6 +46,14 @@ export class ProprieteController {
   @Get()
   async findAll() {
     return await this.proprieteService.findAll();
+  }
+  
+  @UseGuards(JwtAuthGuard)
+  @Get('/findByUser')
+  async findByUser(
+    @User() user: Prisma.bayeursUncheckedCreateWithoutProprieteInput
+  ){
+    return await this.proprieteService.findByUser(user?.id);
   }
 
   @Get(':id')

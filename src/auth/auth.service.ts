@@ -83,21 +83,25 @@ export class AuthService {
             }
           })
         } catch (error) {
+            console.log('ici',error);
+            
           throw new NotFoundException(error)
         }
     }
 
     async signinLocal(dto: AuthDto): Promise<Tokens> {
         const where = {email: dto.email}
-        const req = (dto.type === "bayeur") ? this.prisma.bayeurs : null
-        const user = await req.findUnique({ where })
-        if(!user) throw new ForbiddenException()
-        const passwordCompare = await bcrypt.compare(dto.password, user.password)
-        if(!passwordCompare) throw new ForbiddenException()
+        let req = await this.prisma.bayeurs.findUnique({ where });
+        if(!req){
+            throw new ForbiddenException();
+        }
+         
+        const passwordCompare = await bcrypt.compare(dto.password, req.password);
+        if(!passwordCompare) throw new ForbiddenException();
 
-        const tokens = await this.getTokens(user)
-        await this.updateRtHash({ id: user.id, rt: tokens.refresh_token , type : dto.type })
-        return tokens
+        const tokens = await this.getTokens(req);
+        await this.updateRtHash({ id: req.id, rt: tokens.refresh_token , type : "bayeur" });
+        return tokens;
     }
 
     async logoutLocal(userId: number, type: string) {

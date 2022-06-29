@@ -5,7 +5,15 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe())
+  const corsOptions = {
+    origin: ["http://localhost:3000","http://localhost:19006","http://192.168.1.195:19006"]
+  }
+  app.enableCors(corsOptions)
+  app.useGlobalPipes(new ValidationPipe({
+    transform:true,
+    whitelist:true,
+    forbidNonWhitelisted:true,
+  }));
 
   const config = new DocumentBuilder()
     .setTitle('find-home A.P.I')

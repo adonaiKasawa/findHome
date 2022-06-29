@@ -32,7 +32,17 @@ export class ProprieteService {
       }
     });
   }
-
+  async findByUser(bayeursId: number){
+    return await this.prisma.propriete.findMany({
+      where:{
+        bayeursId
+      },
+      include:{
+        bayeurs:true,
+        models:true
+      }
+    })
+  }
   async update(id: number, data: Prisma.proprieteUpdateInput,bayeurs: number) {
     try {
       return await this.prisma.propriete.updateMany({
@@ -98,7 +108,7 @@ export class ProprieteService {
   }
 
   transformDataForCreate({ files, proprieteCreateInput, user }: { files: any[]; proprieteCreateInput: Prisma.proprieteUncheckedCreateInput; user: Prisma.bayeursUncheckedCreateWithoutProprieteInput; }): Prisma.proprieteUncheckedCreateInput {
-    files.map((file, index) => {
+    files?.map((file, index) => {
       if (index <= 1) {
         if (file.mimetype === "video/mp4") {
           proprieteCreateInput.video = file.filename

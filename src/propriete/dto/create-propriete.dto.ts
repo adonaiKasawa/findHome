@@ -6,12 +6,12 @@ export class CreateProprieteDto {
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    nom     : string
+    nom : string
     
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    type    : string
+    type : string
     
     @ApiProperty()
     @IsNotEmpty()
@@ -21,10 +21,11 @@ export class CreateProprieteDto {
     @ApiProperty()
     @IsOptional()
     @IsString()
-    video   : string
+    video : string
     
     @ApiProperty()
     @IsOptional()
     @IsString()
-    photo   : string
+    photo : string
+
 }
